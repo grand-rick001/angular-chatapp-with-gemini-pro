@@ -55,7 +55,10 @@ export class DataService {
         const chat = model.startChat({
           generationConfig,
           safetySettings,
-          history: [{ role: '', parts }],
+          history: history.map((h) => ({
+            role: h.role,
+            parts: [{ text: h.parts }],
+          })),
         });
 
         const result = await chat.sendMessage(message);
